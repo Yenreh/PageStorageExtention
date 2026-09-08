@@ -8,6 +8,36 @@ function iconNode(name) {
   return document.getElementById(`icon-${name}`).content.cloneNode(true);
 }
 
+// Patron de coincidencia del origen para los permisos opcionales
+function originPattern(origin) {
+  return `${origin}/*`;
+}
+
+// El acceso a cada sitio se concede por separado al activar el interruptor
+async function hasSitePermission(origin) {
+  try {
+    return await chrome.permissions.contains({ origins: [originPattern(origin)] });
+  } catch (e) {
+    return false;
+  }
+}
+
+async function requestSitePermission(origin) {
+  try {
+    return await chrome.permissions.request({ origins: [originPattern(origin)] });
+  } catch (e) {
+    return false;
+  }
+}
+
+async function removeSitePermission(origin) {
+  try {
+    await chrome.permissions.remove({ origins: [originPattern(origin)] });
+  } catch (e) {
+    // El permiso ya no estaba concedido
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const currentUrl = document.getElementById('currentUrl');
   const toggleBar = document.getElementById('toggleBar');
@@ -491,7 +521,19 @@ document.addEventListener('DOMContentLoaded', () => {
       origin: currentOrigin
     });
 
-    const enabled = !!(response && response.enabled);
+    let enabled = !!(response && response.enabled);
+
+    // El acceso al sitio pudo revocarse desde el navegador
+    if (enabled && !(await hasSitePermission(currentOrigin))) {
+      enabled = false;
+      await chrome.runtime.sendMessage({
+        type: 'TOGGLE_SITE',
+        origin: currentOrigin,
+        tabId: currentTab.id,
+        enabled: false
+      });
+    }
+
     enableToggle.disabled = false;
     enableToggle.checked = enabled;
 
@@ -507,6 +549,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!currentOrigin) return;
 
     const enabled = enableToggle.checked;
+
+    // Pedir el acceso al sitio es lo primero, para no perder el gesto del usuario
+    if (enabled && !(await requestSitePermission(currentOrigin))) {
+      enableToggle.checked = false;
+      showToast('toastPermissionDenied');
+      return;
+    }
+
     enableToggle.disabled = true;
 
     try {
@@ -520,6 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (enabled) {
         await loadData();
       } else {
+        await removeSitePermission(currentOrigin);
         setActionsEnabled(false);
         showState('disabled');
       }

@@ -115,5 +115,8 @@
   },
   "toastError": {
     "message": "No se pudo leer esta página"
+  },
+  "toastPermissionDenied": {
+    "message": "No se concedió el acceso a este sitio"
   }
 }

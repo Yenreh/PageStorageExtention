@@ -61,10 +61,13 @@ y `sameSite`.
 
 ## Permisos
 
-- `cookies` y `<all_urls>`: leer, editar y borrar cookies del sitio activo
+- `cookies`: leer, editar y borrar cookies del sitio activo
 - `scripting` y `activeTab`: leer, editar y limpiar local/session storage de la pestaña
 - `tabs`: conocer la URL de la pestaña activa
 - `storage`: recordar qué sitios has habilitado
+- Acceso a sitios (`<all_urls>` opcional): no se concede al instalar. Al activar
+  el interruptor de un sitio, el navegador pide confirmación para ese origen
+  concreto, y al desactivarlo se revoca.
 
 La extensión no envía datos a ningún servidor.
 

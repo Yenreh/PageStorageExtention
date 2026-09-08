@@ -47,10 +47,12 @@ runs only on origins the user has enabled with the toggle in the popup.
 List, edit and delete the cookies of the site the user enabled, from the popup.
 Cookies are only read and modified locally and are never transmitted.
 
-**Host permission (<all_urls>)**
-The user decides which sites to manage, so the hosts cannot be known in advance.
-Despite the broad declaration, the extension only reads or modifies the origins
-the user enabled with the toggle; no other site is accessed.
+**Optional host permission (<all_urls>)**
+Declared as an optional permission, so it is not granted at install time. When
+the user turns on the toggle for a site, the extension requests access to that
+single origin with chrome.permissions.request and the browser shows its own
+confirmation dialog. Turning the toggle off revokes it. The user decides which
+sites to enable, so the list of hosts cannot be known in advance.
 
 **storage**
 Store locally which origins the user enabled. No data leaves the browser.
