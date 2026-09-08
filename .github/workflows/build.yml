@@ -1,0 +1,65 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PACKAGE_NAME: page-storage
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON files
+        run: find Chrome Firefox -name "*.json" -print0 | xargs -0 -n1 jq empty
+
+      - name: Read version from manifests
+        id: version
+        run: |
+          chrome=$(jq -r .version Chrome/manifest.json)
+          firefox=$(jq -r .version Firefox/manifest.json)
+          if [ "$chrome" != "$firefox" ]; then
+            echo "Version mismatch: Chrome $chrome, Firefox $firefox" >&2
+            exit 1
+          fi
+          echo "version=$chrome" >> "$GITHUB_OUTPUT"
+
+      - name: Check tag matches manifest version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          if [ "$tag" != "${{ steps.version.outputs.version }}" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match manifest version ${{ steps.version.outputs.version }}" >&2
+            exit 1
+          fi
+
+      - name: Package extensions
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          mkdir -p dist
+          for browser in Chrome Firefox; do
+            target=$(echo "$browser" | tr '[:upper:]' '[:lower:]')
+            (cd "$browser" && zip -rq -FS "../dist/$PACKAGE_NAME-$target-$VERSION.zip" . -x '.*' '*/.*')
+          done
+          ls -l dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PACKAGE_NAME }}-${{ steps.version.outputs.version }}
+          path: dist/*.zip
+          if-no-files-found: error
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --title "$GITHUB_REF_NAME" --generate-notes
