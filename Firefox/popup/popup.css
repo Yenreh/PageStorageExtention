@@ -50,7 +50,8 @@ body {
 .toggle-bar,
 .info-text,
 .search-bar,
-.actions {
+.actions,
+.footer {
   flex-shrink: 0;
 }
 
@@ -614,6 +615,36 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 12px 6px;
+  background: var(--surface);
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-secondary);
+  font-size: 10px;
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.footer-link svg {
+  width: 12px;
+  height: 12px;
+}
+
+.footer-link:hover {
+  opacity: 1;
+  color: var(--primary-color);
 }
 
 /* Dark mode */
