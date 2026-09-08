@@ -1,0 +1,119 @@
+{
+  "extName": {
+    "message": "Page Storage"
+  },
+  "extDescription": {
+    "message": "Borra cookies, local storage y session storage en los sitios que habilites"
+  },
+  "popupTitle": {
+    "message": "Page Storage"
+  },
+  "headerTitle": {
+    "message": "Page Storage"
+  },
+  "urlLoading": {
+    "message": "Cargando..."
+  },
+  "toggleLabel": {
+    "message": "Gestionar este sitio"
+  },
+  "toggleUnavailable": {
+    "message": "No disponible en esta página"
+  },
+  "infoText": {
+    "message": "Cookies y almacenamiento del origen actual"
+  },
+  "sectionCookies": {
+    "message": "Cookies"
+  },
+  "sectionLocal": {
+    "message": "Local Storage"
+  },
+  "sectionSession": {
+    "message": "Session Storage"
+  },
+  "emptyList": {
+    "message": "Sin entradas"
+  },
+  "clearSectionTitle": {
+    "message": "Limpiar esta sección"
+  },
+  "deleteEntryTitle": {
+    "message": "Eliminar entrada"
+  },
+  "searchPlaceholder": {
+    "message": "Buscar entradas"
+  },
+  "searchClearTitle": {
+    "message": "Limpiar búsqueda"
+  },
+  "noMatches": {
+    "message": "Sin coincidencias"
+  },
+  "copyEntryTitle": {
+    "message": "Copiar valor"
+  },
+  "editEntryTitle": {
+    "message": "Editar valor"
+  },
+  "saveEntryTitle": {
+    "message": "Guardar valor"
+  },
+  "cancelEditTitle": {
+    "message": "Cancelar edición"
+  },
+  "toastCopied": {
+    "message": "Valor copiado"
+  },
+  "toastSaved": {
+    "message": "Valor guardado"
+  },
+  "toastCopyError": {
+    "message": "No se pudo copiar el valor"
+  },
+  "toastSaveError": {
+    "message": "No se pudo guardar el valor"
+  },
+  "disabledTitle": {
+    "message": "Sitio no habilitado."
+  },
+  "disabledHint": {
+    "message": "Activa el interruptor de arriba para inspeccionar y borrar datos en este sitio."
+  },
+  "restrictedTitle": {
+    "message": "Página no compatible."
+  },
+  "restrictedHint": {
+    "message": "Abre una página http o https para gestionar su almacenamiento."
+  },
+  "btnClearAll": {
+    "message": "Limpiar todo"
+  },
+  "btnClearAllTitle": {
+    "message": "Borrar cookies y almacenamiento"
+  },
+  "btnReload": {
+    "message": "Recargar"
+  },
+  "btnReloadTitle": {
+    "message": "Recargar la página"
+  },
+  "btnRefresh": {
+    "message": "Actualizar"
+  },
+  "btnRefreshTitle": {
+    "message": "Actualizar la lista"
+  },
+  "toastCleared": {
+    "message": "Datos borrados"
+  },
+  "toastSectionCleared": {
+    "message": "Sección limpiada"
+  },
+  "toastEntryDeleted": {
+    "message": "Entrada eliminada"
+  },
+  "toastError": {
+    "message": "No se pudo leer esta página"
+  }
+}

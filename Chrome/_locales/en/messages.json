@@ -1,0 +1,119 @@
+{
+  "extName": {
+    "message": "Page Storage"
+  },
+  "extDescription": {
+    "message": "Clears cookies, local storage and session storage on the sites you enable"
+  },
+  "popupTitle": {
+    "message": "Page Storage"
+  },
+  "headerTitle": {
+    "message": "Page Storage"
+  },
+  "urlLoading": {
+    "message": "Loading..."
+  },
+  "toggleLabel": {
+    "message": "Manage this site"
+  },
+  "toggleUnavailable": {
+    "message": "Not available on this page"
+  },
+  "infoText": {
+    "message": "Cookies and storage for the current origin"
+  },
+  "sectionCookies": {
+    "message": "Cookies"
+  },
+  "sectionLocal": {
+    "message": "Local Storage"
+  },
+  "sectionSession": {
+    "message": "Session Storage"
+  },
+  "emptyList": {
+    "message": "No entries"
+  },
+  "clearSectionTitle": {
+    "message": "Clear this section"
+  },
+  "deleteEntryTitle": {
+    "message": "Delete entry"
+  },
+  "searchPlaceholder": {
+    "message": "Search entries"
+  },
+  "searchClearTitle": {
+    "message": "Clear search"
+  },
+  "noMatches": {
+    "message": "No matches"
+  },
+  "copyEntryTitle": {
+    "message": "Copy value"
+  },
+  "editEntryTitle": {
+    "message": "Edit value"
+  },
+  "saveEntryTitle": {
+    "message": "Save value"
+  },
+  "cancelEditTitle": {
+    "message": "Cancel edit"
+  },
+  "toastCopied": {
+    "message": "Value copied"
+  },
+  "toastSaved": {
+    "message": "Value saved"
+  },
+  "toastCopyError": {
+    "message": "Could not copy the value"
+  },
+  "toastSaveError": {
+    "message": "Could not save the value"
+  },
+  "disabledTitle": {
+    "message": "Site not enabled."
+  },
+  "disabledHint": {
+    "message": "Turn on the switch above to inspect and clear data on this site."
+  },
+  "restrictedTitle": {
+    "message": "Page not supported."
+  },
+  "restrictedHint": {
+    "message": "Open an http or https page to manage its storage."
+  },
+  "btnClearAll": {
+    "message": "Clear all"
+  },
+  "btnClearAllTitle": {
+    "message": "Clear cookies and storage"
+  },
+  "btnReload": {
+    "message": "Reload"
+  },
+  "btnReloadTitle": {
+    "message": "Reload the page"
+  },
+  "btnRefresh": {
+    "message": "Refresh"
+  },
+  "btnRefreshTitle": {
+    "message": "Refresh the list"
+  },
+  "toastCleared": {
+    "message": "Data cleared"
+  },
+  "toastSectionCleared": {
+    "message": "Section cleared"
+  },
+  "toastEntryDeleted": {
+    "message": "Entry deleted"
+  },
+  "toastError": {
+    "message": "Could not read this page"
+  }
+}

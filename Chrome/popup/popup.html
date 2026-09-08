@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="popupTitle">Page Storage</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <svg
+            class="logo"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <ellipse
+              cx="12"
+              cy="5"
+              rx="8"
+              ry="3"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <path
+              d="M4 5V19C4 20.66 7.58 22 12 22C16.42 22 20 20.66 20 19V5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M4 12C4 13.66 7.58 15 12 15C16.42 15 20 13.66 20 12"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <h1 class="title" data-i18n="headerTitle">Page Storage</h1>
+        </div>
+      </header>
+
+      <!-- Current URL -->
+      <div class="url-bar">
+        <span id="currentUrl" class="url-text" data-i18n="urlLoading">Loading...</span>
+      </div>
+
+      <!-- Site Toggle -->
+      <div class="toggle-bar" id="toggleBar">
+        <span class="toggle-label" data-i18n="toggleLabel">Manage this site</span>
+        <label class="switch">
+          <input type="checkbox" id="enableToggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- Info text -->
+      <p class="info-text" data-i18n="infoText">Cookies and storage for the current origin</p>
+
+      <!-- Search -->
+      <div class="search-bar" id="searchBar">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+          <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <input
+          type="search"
+          id="searchInput"
+          class="search-input"
+          autocomplete="off"
+          placeholder="Search entries"
+          data-i18n-placeholder="searchPlaceholder"
+        />
+        <button class="search-clear" id="searchClear" title="Clear search" data-i18n-title="searchClearTitle" hidden>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sections -->
+      <div class="sections" id="sections">
+        <section class="data-section" data-area="cookies">
+          <div class="section-header">
+            <span class="section-title" data-i18n="sectionCookies">Cookies</span>
+            <span class="count-badge" id="countCookies">0</span>
+            <button
+              class="section-btn"
+              data-clear="cookies"
+              title="Clear this section"
+              data-i18n-title="clearSectionTitle"
+            >
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M3 6H21M8 6V4C8 3.45 8.45 3 9 3H15C15.55 3 16 3.45 16 4V6M19 6V20C19 20.55 18.55 21 18 21H6C5.45 21 5 20.55 5 20V6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+          <ul class="entry-list" id="listCookies"></ul>
+        </section>
+
+        <section class="data-section" data-area="localStorage">
+          <div class="section-header">
+            <span class="section-title" data-i18n="sectionLocal">Local Storage</span>
+            <span class="count-badge" id="countLocalStorage">0</span>
+            <button
+              class="section-btn"
+              data-clear="localStorage"
+              title="Clear this section"
+              data-i18n-title="clearSectionTitle"
+            >
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M3 6H21M8 6V4C8 3.45 8.45 3 9 3H15C15.55 3 16 3.45 16 4V6M19 6V20C19 20.55 18.55 21 18 21H6C5.45 21 5 20.55 5 20V6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+          <ul class="entry-list" id="listLocalStorage"></ul>
+        </section>
+
+        <section class="data-section" data-area="sessionStorage">
+          <div class="section-header">
+            <span class="section-title" data-i18n="sectionSession">Session Storage</span>
+            <span class="count-badge" id="countSessionStorage">0</span>
+            <button
+              class="section-btn"
+              data-clear="sessionStorage"
+              title="Clear this section"
+              data-i18n-title="clearSectionTitle"
+            >
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M3 6H21M8 6V4C8 3.45 8.45 3 9 3H15C15.55 3 16 3.45 16 4V6M19 6V20C19 20.55 18.55 21 18 21H6C5.45 21 5 20.55 5 20V6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+          <ul class="entry-list" id="listSessionStorage"></ul>
+        </section>
+      </div>
+
+      <!-- Empty / disabled state -->
+      <div class="no-data" id="noData" style="display: none">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+          <path d="M12 8V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <circle cx="12" cy="16" r="1" fill="currentColor" />
+        </svg>
+        <p id="noDataTitle" data-i18n="disabledTitle">Site not enabled.</p>
+        <p class="hint" id="noDataHint" data-i18n="disabledHint">
+          Turn on the switch above to inspect and clear data on this site.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="actions">
+        <button class="action-btn" id="clearAllBtn" title="Clear cookies and storage" data-i18n-title="btnClearAllTitle">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M3 6H5H21"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span data-i18n="btnClearAll">Clear all</span>
+        </button>
+        <button class="action-btn" id="refreshBtn" title="Refresh the list" data-i18n-title="btnRefreshTitle">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M23 4V10H17"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M1 20V14H7"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M3.51 9C4.01717 7.56678 4.87913 6.2854 6.01547 5.27542C7.15182 4.26543 8.52547 3.55976 10.0083 3.22426C11.4911 2.88875 13.0348 2.93434 14.4952 3.35677C15.9556 3.77921 17.2853 4.56471 18.36 5.64L23 10M1 14L5.64 18.36C6.71475 19.4353 8.04437 20.2208 9.50481 20.6432C10.9652 21.0657 12.5089 21.1112 13.9917 20.7757C15.4745 20.4402 16.8482 19.7346 17.9845 18.7246C19.1209 17.7146 19.9828 16.4332 20.49 15"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span data-i18n="btnRefresh">Refresh</span>
+        </button>
+        <button class="action-btn" id="reloadBtn" title="Reload the page" data-i18n-title="btnReloadTitle">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 3V7"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M9 6L12 3L9 0.999999"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span data-i18n="btnReload">Reload</span>
+        </button>
+      </div>
+
+      <!-- Toast -->
+      <div class="toast" id="toast"></div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
