@@ -3,21 +3,10 @@
 
 const VALUE_PREVIEW_LENGTH = 120;
 
-const ICONS = {
-  copy:
-    '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-    '<rect x="9" y="9" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/>' +
-    '<path d="M5 15H4C2.9 15 2 14.1 2 13V4C2 2.9 2.9 2 4 2H13C14.1 2 15 2.9 15 4V5" stroke="currentColor" stroke-width="2"/>' +
-    '</svg>',
-  edit:
-    '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-    '<path d="M4 20H8L19 9C20.1 7.9 20.1 6.1 19 5C17.9 3.9 16.1 3.9 15 5L4 16V20Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>' +
-    '</svg>',
-  remove:
-    '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-    '<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
-    '</svg>'
-};
+// Clonar un icono declarado como plantilla en el popup
+function iconNode(name) {
+  return document.getElementById(`icon-${name}`).content.cloneNode(true);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const currentUrl = document.getElementById('currentUrl');
@@ -249,11 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return haystack.includes(filter);
   }
 
-  function iconButton(className, titleKey, icon, onClick) {
+  function iconButton(className, titleKey, iconName, onClick) {
     const button = document.createElement('button');
     button.className = className;
     button.title = t(titleKey);
-    button.innerHTML = icon;
+    button.appendChild(iconNode(iconName));
     button.addEventListener('click', onClick);
     return button;
   }
@@ -349,16 +338,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const actions = document.createElement('div');
     actions.className = 'entry-actions';
     actions.appendChild(
-      iconButton('entry-btn', 'copyEntryTitle', ICONS.copy, () => copyValue(area, entry))
+      iconButton('entry-btn', 'copyEntryTitle', 'copy', () => copyValue(area, entry))
     );
     actions.appendChild(
-      iconButton('entry-btn', 'editEntryTitle', ICONS.edit, async () => {
+      iconButton('entry-btn', 'editEntryTitle', 'edit', async () => {
         editing = { area, key: entry.key, value: await getFullValue(area, entry) };
         render();
       })
     );
     actions.appendChild(
-      iconButton('entry-btn delete', 'deleteEntryTitle', ICONS.remove, () => deleteEntry(area, entry))
+      iconButton('entry-btn delete', 'deleteEntryTitle', 'remove', () => deleteEntry(area, entry))
     );
 
     item.appendChild(info);
@@ -372,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const visible = all.filter(matchesFilter);
 
     counters[area].textContent = filter ? `${visible.length}/${all.length}` : String(all.length);
-    list.innerHTML = '';
+    list.replaceChildren();
 
     if (visible.length === 0) {
       const empty = document.createElement('li');
