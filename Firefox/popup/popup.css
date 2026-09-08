@@ -27,7 +27,7 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 13px;
   background: var(--background);
   color: var(--text-primary);
