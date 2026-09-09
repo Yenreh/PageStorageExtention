@@ -8,9 +8,12 @@ function iconNode(name) {
   return document.getElementById(`icon-${name}`).content.cloneNode(true);
 }
 
-// Patron de coincidencia del origen para los permisos opcionales
+// Patron de coincidencia del origen para los permisos opcionales.
+// Se omite el puerto: Chrome resuelve la URL de cada cookie sin el y filtra
+// los resultados de cookies.getAll con los permisos concedidos
 function originPattern(origin) {
-  return `${origin}/*`;
+  const { protocol, hostname } = new URL(origin);
+  return `${protocol}//${hostname}/*`;
 }
 
 // El acceso a cada sitio se concede por separado al activar el interruptor

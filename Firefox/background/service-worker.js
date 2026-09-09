@@ -17,10 +17,16 @@ async function isSiteEnabled(origin) {
   return !!enabledOrigins[origin];
 }
 
+// Patron de coincidencia del origen, sin el puerto, igual que en el popup
+function originPattern(origin) {
+  const { protocol, hostname } = new URL(origin);
+  return `${protocol}//${hostname}/*`;
+}
+
 // El acceso a cada sitio se concede por separado desde el popup
 async function hasSitePermission(origin) {
   try {
-    return await chrome.permissions.contains({ origins: [`${origin}/*`] });
+    return await chrome.permissions.contains({ origins: [originPattern(origin)] });
   } catch (e) {
     return false;
   }
@@ -131,8 +137,11 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
 });
 
 // Si el usuario revoca el acceso a un sitio desde el navegador, dejar de gestionarlo
-chrome.permissions.onRemoved.addListener(async ({ origins = [] }) => {
-  for (const pattern of origins) {
-    await setSiteEnabled(pattern.replace(/\/\*$/, ''), false);
+chrome.permissions.onRemoved.addListener(async () => {
+  const { enabledOrigins = {} } = await chrome.storage.local.get('enabledOrigins');
+  for (const origin of Object.keys(enabledOrigins)) {
+    if (!(await hasSitePermission(origin))) {
+      await setSiteEnabled(origin, false);
+    }
   }
 });
